@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+typedef struct Empresa
+{
+    char origem[45];
+    char destino[45];
+    float saida;
+};
+
+void alterar(int *resposta, int *senha)
+{
+    if(*resposta==1)
+    {
+        int novasenha;
+        printf("Nova senha:");
+        scanf("%i", &novasenha);
+        *senha=novasenha;
+        printf("Senha Alterada com Sucesso!");
+    }
+
+}
+void validar(int codigo, int senha, int *tentativa)
+{
+    if(codigo==123 && senha==456)
+    {
+        *tentativa=5;
+    }
+    else
+    {
+        *tentativa=*tentativa+1;
+    }
+}
+void cadastrar(struct Empresa e[])
+{
+    int i;
+    for(i=0;i<8;i++)
+    {
+        printf("Informe a origem:");
+        __fpurge(stdin);
+        gets(e[i].origem);
+        printf("Informe o destino:");
+        __fpurge(stdin);
+        gets(e[i].destino);
+        printf("Horário de Saída:");
+        scanf("%f", &e[i].saida);
+    }
+}
+int main()
+{
+    int tentativa=0, codigo, senha, resposta;
+    while(tentativa<3)
+    {
+        printf("\t\t\t TCL - TRANSPORTES COLETIVOS LÉO\n\n\n\n\t\tINSIRA SEU CÓDIGO DE ACESSO:");
+        scanf("%i", &codigo);
+        printf("\t\tINSIRA SUA SENHA:");
+        scanf("%i", &senha);
+        validar(codigo, senha, &tentativa);
+
+
+    }
+    if(tentativa==5)
+    {
+        printf("Você deseja alterar sua senha? 1- SIM 2 - NÃO");
+        scanf("%i", &resposta);
+        alterar(&resposta, &senha);
+        struct Empresa e[8];
+        cadastrar(e);
+
+    }
+
+}
